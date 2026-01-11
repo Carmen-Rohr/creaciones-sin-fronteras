@@ -1,0 +1,584 @@
+/* --- Configuración General --- */
+:root {
+    --primario: #2c3e50;
+    --acento: #d32f2f;   /* Tu rojo artístico */
+    --fondo: #f2ede4;    /* Beige clásico (tipo pergamino) */
+    --blanco: #ffffff;
+    --texto: #333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--fondo);
+    color: var(--texto);
+    line-height: 1.6;
+}
+
+/* --- Navegación (Aquí está el arreglo para que no se vea uno abajo del otro) --- */
+.header {
+    background-color: var(--primario);
+    color: var(--blanco);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between; /* Separa el logo del menú */
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav ul {
+    display: flex; /* ESTO pone los ítems de costado */
+    list-style: none; /* Quita los puntitos de la lista */
+}
+
+.nav li {
+    margin-left: 20px;
+}
+
+.nav a {
+    color: var(--blanco);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.nav a:hover {
+    color: var(--acento);
+}
+
+.btn-admin {
+    background-color: var(--acento);
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+/* --- AGREGA ESTO A TU estilos.css --- */
+
+/* 1. El contenedor que tiene la imagen y el texto */
+.logo {
+    display: flex;          /* ¡La magia! Los pone uno al lado del otro */
+    align-items: center;    /* Los centra verticalmente */
+    gap: 15px;              /* Un espacio "respirable" entre el logo y el texto */
+}
+
+/* 2. Controlar el tamaño de la imagen del logo */
+.mi-logo-img {
+    height: 50px;  /* Ajustá este número según el tamaño que quieras */
+    width: auto;   /* Mantiene la proporción para que no se deforme */
+    display: block; /* Elimina un pequeño espacio molesto debajo de las imágenes */
+}
+
+/* 3. Ajuste opcional para el título si se ve muy grande al lado del logo */
+.header h1 {
+    font-size: 1.5rem; /* Un tamaño un poco más chico queda mejor con logo */
+    margin: 0;         /* Quitamos márgenes por defecto para alinear mejor */
+    line-height: 1;    /* Ayuda a que quede bien centrado con la imagen */
+}
+
+/* --- SECCIÓN HERO --- */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                url('./static/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 40vh;
+    position: relative;
+    height: 40vh; /* Ajusta la altura a tu gusto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden; /* Importante para que el zoom no se salga del cuadro */
+    color: white;
+    border-bottom: 5px solid var(--acento);
+}
+
+/* Efecto de Zoom Lento en el fondo */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('static/mi-banner.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    animation: slowZoom 20s infinite alternate;
+}
+
+/* Efecto de Aparición del Texto */
+.hero-content {
+    animation: fadeInUp 1.5s ease-out forwards;
+    padding: 20px;
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5); /* Sombra para resaltar el rojo */
+    margin-bottom: 10px;
+}
+
+/* --- ANIMACIONES (Keyframes) --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slowZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+/* --- Contenedor y Secciones --- */
+.container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.section {
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--acento); /* Letras rojas */
+    margin-bottom: 30px;
+    border-bottom: 3px solid var(--acento); /* Línea decorativa roja */
+    display: inline-block;
+
+    position: relative;
+    display: inline-block; /* Para que la línea mida lo mismo que el texto */
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%); /* Esto centra el título perfectamente */
+}
+
+/* La línea roja "invisible" al principio */
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0; /* Empieza con ancho cero */
+    height: 3px;
+    background-color: var(--acento);
+    transition: width 0.8s ease-in-out; /* Se expande en 0.8 segundos */
+}
+
+/* Cuando el usuario llega a la sección (o al pasar el mouse) */
+.section-title:hover::after {
+    width: 100%; /* La línea se completa al pasar el mouse */
+}
+
+/* --- Grilla de Imágenes (Historietas y Dibujos) --- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* Las tarjetas de los dibujos */
+.card {
+    background: #fff; /* Blanco puro para que la obra de arte destaque */
+    border: 1px solid #e0d9c1; /* Un borde sutil apenas más oscuro que el beige */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Sombra suave */
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card img {
+    width: 100%;
+    height: 250px; /* Mantener una altura fija para que la grilla sea simétrica */
+    object-fit: contain; /* ¡ESTA ES LA CLAVE! Muestra la imagen entera sin cortar */
+    background-color: #eee; /* Un gris muy suave de fondo por si la imagen es vertical */
+    display: block;
+    padding: 5px;
+}
+
+.card-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-info h3 {
+    font-family: 'Playfair Display', serif; /* Misma fuente elegante de las poesías */
+    font-size: 1.2rem;
+    color: #222; /* Un negro casi puro, muy elegante */
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Ajuste específico para que las historietas se vean más altas en la grilla */
+#historietas .card img {
+    height: 350px; /* Un poco más de altura para formato página */
+    object-fit: contain; 
+    background-color: #fdfbf7; /* El mismo beige de fondo para que no desentone */
+}
+
+/* Estilo especial para la primera hoja de la historieta */
+.card.portada {
+    border: 2px solid #d4af37; 
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+}
+
+.card.portada h3 {
+    font-weight: bold;
+    color: #b8860b;
+}
+
+.btn-info {
+    background: none;
+    border: 1px solid var(--acento);
+    color: var(--acento);
+    padding: 5px 12px;
+    border-radius: 20px; /* Redondito queda más artístico */
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.btn-info:hover {
+    background-color: var(--acento);
+    color: white;
+}
+
+/* El fondo oscuro que cubre toda la pantalla */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8); /* Más oscuro para que resalte el texto */
+    backdrop-filter: blur(4px);
+}
+
+/* La cajita con el texto */
+.modal-content {
+    background-color: #fdfbf7; /* Tu beige de papel */
+    margin: 5% auto;
+    padding: 40px;
+    border-left: 8px solid var(--acento);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+/* La X para cerrar */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #999;
+}
+
+.close:hover { color: var(--acento); }
+
+/* Contenedor que permite las dos columnas */
+.poesia-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* La hoja de la poesía (Efecto Cuaderno) */
+.poesia-grid {
+    background-color: #fdfbf7;
+    border-left: 8px solid var(--acento);
+    padding: 50px;
+    border-radius: 0 15px 15px 0;
+    position: relative;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    /* El efecto de puntos que te gustaba */
+    background-image: radial-gradient(#d1d1d1 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+}
+
+.poesia-grid:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    border-left-width: 15px;
+}
+
+/* Títulos de las poesías */
+.poesia-item h3 {
+    color: var(--acento);
+    font-family: serif;
+    margin-bottom: 25px;
+    font-size: 1.6rem;
+}
+
+/* El texto de los versos */
+.poesia-item p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 25px; /* Espacio entre estrofas */
+}
+
+/* LA LETRA CAPITAL (La magia roja al principio) */
+.poesia-item p:first-of-type::first-letter {
+    font-size: 3.5rem;
+    color: var(--acento);
+    float: left;
+    margin-right: 12px;
+    line-height: 1;
+    font-weight: bold;
+    font-family: serif;
+}
+
+/* --- Footer --- */
+.footer {
+    background: var(--primario);
+    color: white;
+    text-align: center;
+    padding: 40px 0;
+    margin-top: 50px;
+}
+
+/* Botón WhatsApp a la derecha */
+.whatsapp-float {
+    position: fixed; /* Esto hace que flote */
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* Para que siempre esté arriba de todo */
+    box-shadow: 2px 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Botón Música a la izquierda */
+.music-float {
+    position: fixed; /* Esto hace que flote */
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    left: 40px;
+    background-color: var(--acento);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 2px 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Aplicamos esto a ambos botones */
+.whatsapp-float, .music-float {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto elástico */
+}
+
+.whatsapp-float:hover, .music-float:hover {
+    transform: scale(1.2); /* Se agranda un 20% */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* La sombra se profundiza */
+}
+
+
+.link-footer {
+    color: #25d366; /* Verde oficial de WhatsApp */
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.link-footer:hover {
+    color: #128c7e; /* Un verde más oscuro al pasar el mouse */
+    border-bottom: 1px solid #128c7e;
+}
+
+/* Contenedor flexible para poner la imagen a la derecha */
+.contenido-con-lateral {
+    display: flex;
+    align-items: flex-start; /* Alinea la imagen arriba */
+    gap: 20px;               /* Espacio entre la galería y la imagen */
+    width: 100%;
+}
+
+/* La grilla ocupa todo el espacio que pueda */
+.grid {
+    flex: 1; 
+}
+
+/* Estilos para la sección Sobre el Autor */
+.about-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.about-text {
+    background-color: #fdfbf7; /* Mismo tono papel que las poesías */
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    text-align: center;
+    border-top: 4px solid var(--acento); /* Un detalle sutil arriba */
+}
+
+.about-text p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 25px;
+    font-family: 'Playfair Display', serif; /* Si usas esta fuente en poesías, acá queda genial */
+}
+
+.firma-autor {
+    margin-top: 30px;
+    font-size: 1.4rem;
+    color: var(--acento);
+    font-style: italic;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    display: inline-block;
+}
+
+/* Estilo para la imagen de la derecha */
+.imagen-lateral {
+    width: 300px;           /* Controlamos que no sea muy grande */
+    flex-shrink: 0;         /* Evita que la imagen se achique si falta espacio */
+    position: sticky;       /* Opcional: la imagen se queda quieta al bajar */
+    top: 100px;
+}
+
+.imagen-lateral img {
+    width: 100%;            /* Se adapta al ancho de 150px */
+    height: auto;
+    flex-shrink: 0;        /* No deja que se achique */
+    margin-right: 0;       /* Pegada al borde derecho */
+    text-align: right;     /* Alinea la imagen dentro de su caja a la derecha */
+
+    border-radius: 8px;     /* Bordes suaves */
+    filter: grayscale(20%); /* Opcional: un toque artístico */
+    opacity: 0.8;           /* Que no distraiga demasiado */
+}
+
+/* Contenedor de contacto */
+.contacto-contenedor {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff; /* Blanco para que resalte sobre el beige */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.contacto-texto {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primario);
+}
+
+/* Estilos de los campos */
+.grupo-input {
+    margin-bottom: 20px;
+}
+
+.grupo-input label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--primario);
+}
+
+.grupo-input input, 
+.grupo-input textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0d9c1; /* Beige oscuro */
+    border-radius: 8px;
+    background-color: #fdfbf7;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.grupo-input input:focus, 
+.grupo-input textarea:focus {
+    outline: none;
+    border-color: var(--acento); /* Rojo al hacer clic */
+}
+
+/* Botón de enviar */
+.btn-enviar {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--acento); /* Rojo */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-enviar:hover {
+    background-color: #b71c1c; /* Un rojo más oscuro al pasar el mouse */
+    transform: translateY(-2px);
+}
+
+/* --- Responsive (Celulares) --- */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+    }
+    .nav ul {
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .nav li {
+        margin: 5px 10px;
+    }
+    .contenido-con-lateral {
+        flex-direction: column;
+    }
+    .imagen-lateral {
+        width: 100px;
+        align-self: center; /* La centramos abajo */
+    }
+}

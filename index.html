@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREACIONES SIN FRONTERAS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img class="mi-logo-img" src="./static/logo.jpg" alt="LOGO">
+            <h1>CREACIONES SIN FRONTERAS</h1>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="#historietas">Historietas</a></li>
+                <li><a href="#dibujos">Dibujo y Arte</a></li>
+                <li><a href="#poesias">Poesías</a></li>
+                <li><a href="#autor">Sobre el Autor</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="/admin/" class="btn-admin">Panel de Subida</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Historietas, Dibujos y Poesías</h2>
+            <p>Explora mi galería personal de creaciones artísticas.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        
+        <section id="historietas" class="section">
+            <h2 class="section-title">Historietas</h2>            
+            
+            <div class="contenido-con-lateral">
+                <div class="grid" id="grid-historietas">
+                    
+                    <article class="card portada">
+                        <a href="static/uploads/historieta1.jpg" data-lightbox="historietas" data-title="Página 1: El inicio">
+                            <img src="static/uploads/historieta1.jpg" alt="Historieta Página 1">
+                        </a>
+                        <div class="card-info">
+                            <h3>Página 1</h3>
+                            <button class="btn-info" onclick="abrirModal('Esta historieta es sobre un joven con un corazón muy grande y dado al servicio del prójimo.<br>Pero no le encuentra la veta a su vida, hasta que conoció a Dios y fue encaminado a través del Espíritu Santo de Dios. <br> Él y su familia fueron salvos.<br><br><strong>Aférrate a Jehová y despójate de tu ser, para dejar entrar a Dios en tu vida.</strong><br>Autor desconocido:<br><em>“Cada día más de Ti y menos de mí…”</em><br><br><br><strong>Autor: Ilustración y escritura: Olguin, Fernando Mauricio.</strong><br>Fecha de terminación: Viernes 1 de Agosto de 2025<br><br><strong>¡Inspirado en vidas reales, salvadas por Dios!</strong>')">
+                                ℹ️ Sobre la historieta
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <a href="static/uploads/historieta2.jpg" data-lightbox="historietas" data-title="Página 2">
+                            <img src="static/uploads/historieta2.jpg" alt="Historieta Página 2">
+                        </a>
+                        <div class="card-info">
+                            <h3>Página 2</h3>
+                        </div>
+                    </article>
+
+                </div>
+
+                <aside class="imagen-lateral">
+                    <img src="./static/versiculo.jpg" alt="Decoración">
+                </aside>
+            </div>
+        </section>
+
+        <div id="miModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModal()">&times;</span>
+                <h2>Sobre esta historieta</h2>
+                <hr>
+                <p id="modal-texto" style="margin-top: 20px; line-height: 1.6;"></p>
+            </div>
+        </div>
+
+        <section id="dibujos" class="section">
+            <h2 class="section-title">Dibujo y Arte</h2>
+            <div class="contenido-con-lateral">
+                <div class="grid" id="grid-dibujos">
+                    <article class="card">
+                        <a href="static/uploads/dibujo1.jpg" data-lightbox="galeria" data-title="Título del Dibujo 1">
+                            <img src="static/uploads/dibujo1.jpg" alt="Dibujo1">
+                        </a>
+                        <div class="card-info">
+                            <h3>Título del Dibujo 1</h3>
+                        </div>
+                    </article>
+                </div>
+                <aside class="imagen-lateral">
+                    <img src="./static/versiculo3.jpg" alt="Decoración">
+                </aside>
+            </div>
+        </section>
+
+        <section id="poesias" class="section">
+            <h2 class="section-title">Poesías</h2>
+
+            <div class="poesia-container">
+                <div class="poesia-grid">
+                    <div class="poesia-item">
+                        <h3>La soledad que no conlleva tristeza</h3>
+                        <p>Una soledad con Cristo es ausencia de tristeza,<br>llantos y dolor.</p>
+
+                        <p>Una soledad con Cristo es sentirse completo, lleno de su<br>
+                        Espíritu, gozo y paz; es una ruptura al quebrantamiento<br>
+                        y una puerta abierta al amor, la alegría y la felicidad.</p>
+
+                        <p>Una soledad con Cristo es una bendición, es un manantial<br>
+                        recorriendo nuestras coyunturas, músculos, huesos y mente para que a través<br>
+                        de una sonrisa en nuestro rostro podamos reflejar lo que Él hace en lo profundo.</p>
+
+                        <p>Una soledad con Cristo es tan profunda como el conocimiento<br>
+                        de Su Palabra. Es un amor sin límites, es la presencia misma de Dios<br>
+                        cobijándonos en Sus brazos.</p>
+
+                        <p>Una soledad con Cristo es explorar en un mundo aún no<br>
+                        descubierto, basado en la fe y en la esperanza; es un conjunto de<br>
+                        posibilidades que limita nuestra comprensión de la realidad.</p>
+                    </div>
+                </div>
+
+                <div class="poesia-grid">
+                    <div class="poesia-item">
+                        <h3>Majestuosidad</h3>
+                        
+                        <p>
+                            Si me alejo de Tu presencia, siento que no existo;<br>
+                            todo es nada, comparado al gozo y la plenitud<br>
+                            cuando me regocijo en Tus brazos.
+                        </p>
+
+                        <p>
+                            No es un sentimiento, tampoco una emoción,<br>
+                            no es un amor pasajero, ni del mundo.<br>
+                            Es Tu majestuosidad; es el fruto de Tu Espíritu;<br>
+                            es Tu inmensurable amor por la salvación de las almas.
+                        </p>
+
+                        <p>
+                            No hay idiomas, ni ideología, ni pensamientos,<br>
+                            ni escrituras que puedan describir tanta sabiduría;<br>
+                            es tan profundo que trasciende las palabras.
+                        </p>
+
+                        <p>
+                            Sumérgete en las Escrituras, en la Palabra de Dios;<br>
+                            contempla Su creación y no te afanes por el mañana.<br>
+                            Disfruta tanto comer un pan duro como un asado.
+                        </p>
+
+                        <p>
+                            ¡Pues hermano…!<br>
+                            Es lo que Dios decidió darte ese día.<br>
+                            Esfuérzate, sé un soldado de Cristo.<br>
+                            <strong>¡Dios te ama!</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="autor" class="section about-section">
+            <h2 class="section-title">Sobre el Autor</h2>
+            <div class="about-container">
+                <div class="about-text">
+                    <p>
+                        Desde niño me apasiona el arte en todas sus formas. Lo que comenzó como un juego con lápices y papel, 
+                        hoy se ha convertido en mi canal para expresar sentimientos, historias y mi fe.
+                    </p>
+                    <p>
+                        A través de mis dibujos, historietas y poesías, busco compartir una mirada propia sobre la vida y el espíritu, 
+                        invitando a quien observa a encontrar un momento de reflexión y paz. Esta galería es mi pequeño aporte 
+                        para agradecer el don que Dios me ha dado.
+                    </p>
+                    <p class="firma-autor"><strong>— Fernando Mauricio Olguin</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="section">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contacto-contenedor">
+                <p class="contacto-texto">¿Te interesa alguna obra o quieres consultar algo? Envíame un mensaje.</p>
+                
+                <form name="contacto-artista" method="POST" data-netlify="true" class="formulario">
+                    <div class="grupo-input">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre..." required>
+                    </div>
+                    
+                    <div class="grupo-input">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                    </div>
+                    
+                    <div class="grupo-input">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" rows="5" placeholder="Dejame tu consulta..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-enviar">Enviar Mensaje</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 - Creaciones sin fronteras - Hecho con ❤️</p>
+        <p>Contactame por <a href="https://wa.me/5492323588031" target="_blank" class="link-footer">WhatsApp</a></p>
+    </footer>
+
+    <a href="https://wa.me/5492323588031" class="whatsapp-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
+
+    <button id="music-btn" class="music-float">
+        <span id="music-icon">🎵</span>
+        <audio id="background-music" loop>
+            <source src="static/musica.mp3" type="audio/mpeg">
+            Tu navegador no soporta audio.
+        </audio>
+    </button>
+
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script>
+        // Usamos window.onload para asegurar que todo cargó antes de ejecutar
+        window.onload = function() {
+            const musicBtn = document.getElementById('music-btn');
+            const music = document.getElementById('background-music');
+            const icon = document.getElementById('music-icon');
+
+            if(musicBtn && music) {
+                musicBtn.addEventListener('click', () => {
+                    if (music.paused) {
+                        music.play();
+                        icon.innerText = '⏸️'; 
+                    } else {
+                        music.pause();
+                        icon.innerText = '🎵';
+                    }
+                });
+            }
+        };
+    </script>
+    <script>
+        function abrirModal(contenidoHtml) {
+            const modal = document.getElementById("miModal");
+            const modalTexto = document.getElementById("modal-texto");
+
+            if (modal && modalTexto) {
+                // Usamos innerHTML para que reconozca las negritas y saltos de línea
+                modalTexto.innerHTML = contenidoHtml; 
+                modal.style.display = "block";
+            }
+        }
+
+        function cerrarModal() {
+            document.getElementById("miModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("miModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

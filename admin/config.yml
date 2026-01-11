@@ -1,0 +1,9 @@
+# Ejemplo de cómo el CMS sabe dónde guardar los dibujos
+collections:
+  - name: "dibujos"
+    label: "Dibujos"
+    folder: "_dibujos" # Aquí se guardan los datos de cada dibujo nuevo
+    create: true       # Esto habilita el botón "Nuevo"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Imagen", name: "image", widget: "image"}
