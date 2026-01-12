@@ -307,6 +307,7 @@ body {
 .close:hover { color: var(--acento); }
 
 /* Contenedor que permite las dos columnas */
+/* Contenedor que permite las dos columnas */
 .poesia-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));

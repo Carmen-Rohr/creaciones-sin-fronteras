@@ -22,7 +22,7 @@
                 <li><a href="#poesias">Poesías</a></li>
                 <li><a href="#autor">Sobre el Autor</a></li>
                 <li><a href="#contacto">Contacto</a></li>
-                <li><a href="/admin/" class="btn-admin">Panel de Subida</a></li>
+
             </ul>
         </nav>
     </header>
@@ -163,8 +163,54 @@
                         </p>
                     </div>
                 </div>
+                <div class="poesia-grid">
+                    <div class="poesia-item">
+                        <h3 style="text-align: center;">Propósito Divino</h3>
+                        
+                        <p>
+                            ¿Qué tuvimos que hacer nosotros para ser elegidos por Dios? <strong>NADA</strong>.<br>
+                            No somos pecadores por nuestra propia voluntad, sino porque Adán y Eva<br>
+                            introdujeron el pecado al mundo.
+                        </p>
+
+                        <p>
+                            Pero hay un Dios que se hizo hombre, viniendo al mundo dispuesto a borrar<br>
+                            todo pecado por su misericordia y amor por la humanidad.<br>
+                            Si fuiste elegido por Dios, no fue al azar, sino porque vio tu corazón.
+                        </p>
+
+                        <p>
+                            Entrégate de lleno en Sus brazos y te hará fuerte como la piedra angular.<br>
+                            Te moldeará a Su imagen y semejanza y hará de ti lumbrera para los que te rodean;<br>
+                            guiará tus pasos y pondrá propósito a tu vida.
+                        </p>
+
+                        <p>
+                            Ahora ya no eres tú, sino su Espíritu Santo obrando en ti con poder.<br>
+                            No apagues su llama; mantenla encendida con la vista puesta en la salvación<br>
+                            de las almas. Ese es su objetivo y ¡nada ni nadie lo puede impedir,<br>
+                            porque es el propósito de Dios!
+                        </p>
+
+                        <p>
+                            Y contigo pasará lo mismo, porque su Palabra dice: <em>“Si Dios es conmigo, ¿quién contra mí?”</em>.<br>
+                            ¡El Señor tiene cosas hermosas preparadas para ti! Sé fuerte y valiente.
+                        </p>
+
+                        <p>
+                            Y si te equivocas, solo ve humillado ante Él, y te perdonará. Su amor no tiene límites.<br>
+                            No te apresures, solo ve en Sus tiempos, buscando en lo secreto,<br>
+                            y Él te recompensará en público.
+                        </p>
+                        
+                        <p style="text-align: center; margin-top: 20px; font-size: 1.2em;">
+                            <strong>¡Dios te ama!</strong>
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
+
         <section id="autor" class="section about-section">
             <h2 class="section-title">Sobre el Autor</h2>
             <div class="about-container">
@@ -261,28 +307,35 @@
             }
         };
     </script>
-    <script>
-        function abrirModal(contenidoHtml) {
-            const modal = document.getElementById("miModal");
-            const modalTexto = document.getElementById("modal-texto");
+        <script>
+        function cargarGaleria(categoria, idContenedor) {
+            const grid = document.getElementById(idContenedor);
+            if (!grid) return;
 
-            if (modal && modalTexto) {
-                // Usamos innerHTML para que reconozca las negritas y saltos de línea
-                modalTexto.innerHTML = contenidoHtml; 
-                modal.style.display = "block";
-            }
+            fetch(`/.netlify/functions/getImages?tag=${categoria}`)
+                .then(res => res.json())
+                .then(images => {
+                    images.forEach(img => {
+                        const article = document.createElement('article');
+                        article.className = 'card';
+                        article.innerHTML = `
+                            <a href="${img.url}" data-lightbox="${categoria}" data-title="${img.titulo}">
+                                <img src="${img.url}" alt="${img.titulo}">
+                            </a>
+                            <div class="card-info">
+                                <h3>${img.titulo}</h3>
+                            </div>
+                        `;
+                        grid.appendChild(article);
+                    });
+                })
+                .catch(err => console.error("Error al cargar " + categoria, err));
         }
 
-        function cerrarModal() {
-            document.getElementById("miModal").style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById("miModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarGaleria('historietas', 'grid-historietas');
+            cargarGaleria('dibujos', 'grid-dibujos');
+        });
     </script>
 </body>
 </html>

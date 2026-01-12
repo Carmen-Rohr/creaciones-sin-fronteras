@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Obra - Creaciones sin Fronteras</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="container" style="max-width: 500px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <h2 style="text-align: center; color: #6a1b9a;">Subir Imagen</h2>
+        
+        <div class="formulario">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Título de la obra</label>
+                <input type="text" id="titulo" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" placeholder="Ej: Atardecer de fe">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Categoría</label>
+                <select id="categoria" style="width: 100%; padding: 10px; border-radius: 5px;">
+                    <option value="historietas">Historieta</option>
+                    <option value="dibujos">Dibujo y Arte</option>
+                </select>
+            </div>
+
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            <button class="btn-enviar" onclick="document.getElementById('fileInput').click()" style="background: #6a1b9a; color: white; width: 100%; padding: 12px; border: none; border-radius: 5px; cursor: pointer;">
+                📷 Seleccionar y Publicar
+            </button>
+            
+            <div id="mensaje" style="margin-top: 20px; text-align: center; font-weight: bold;"></div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="index.html" style="text-decoration: none; color: #666;">← Volver al inicio</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const mensaje = document.getElementById('mensaje');
+
+        fileInput.addEventListener('change', async function () {
+            const file = this.files[0];
+            const titulo = document.getElementById('titulo').value;
+            const categoria = document.getElementById('categoria').value;
+
+            if (!file || !titulo) {
+                alert("Por favor, ingresa un título antes de subir la imagen.");
+                return;
+            }
+
+            mensaje.innerHTML = '<span style="color: orange;">⏳ Subiendo...</span>';
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', 'tu_preset'); // REEMPLAZAR
+            formData.append('tags', categoria); 
+            formData.append('context', `caption=${titulo}`);
+
+            try {
+                const res = await fetch('https://api.cloudinary.com/v1_1/tu_usuario/image/upload', { // REEMPLAZAR
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+
+                if (data.secure_url) {
+                    mensaje.innerHTML = '<span style="color: green;">✅ ¡Publicado con éxito!</span>';
+                    document.getElementById('titulo').value = '';
+                } else {
+                    mensaje.innerHTML = '<span style="color: red;">❌ Error al subir.</span>';
+                }
+            } catch (err) {
+                mensaje.innerHTML = '<span style="color: red;">❌ Error de conexión.</span>';
+            }
+        });
+    </script>
+</body>
+</html>
