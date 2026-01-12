@@ -3,79 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subir Obra - Creaciones sin Fronteras</title>
+    <title>Subir Obra - Creaciones Sin Fronteras</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <div class="container" style="max-width: 500px; margin: 50px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-        <h2 style="text-align: center; color: #6a1b9a;">Subir Imagen</h2>
+
+    <div class="form-container">
+        <h2>Subir Nueva Obra</h2>
         
-        <div class="formulario">
-            <div style="margin-bottom: 15px;">
-                <label style="display: block; margin-bottom: 5px;">Título de la obra</label>
-                <input type="text" id="titulo" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" placeholder="Ej: Atardecer de fe">
-            </div>
+        <input type="text" id="titulo" placeholder="Título de la obra" required>
+        
+        <select id="categoria">
+            <option value="dibujos">Dibujo y Arte</option>
+            <option value="historietas">Historieta</option>
+        </select>
 
-            <div style="margin-bottom: 15px;">
-                <label style="display: block; margin-bottom: 5px;">Categoría</label>
-                <select id="categoria" style="width: 100%; padding: 10px; border-radius: 5px;">
-                    <option value="historietas">Historieta</option>
-                    <option value="dibujos">Dibujo y Arte</option>
-                </select>
-            </div>
-
-            <input type="file" id="fileInput" accept="image/*" style="display: none;">
-            <button class="btn-enviar" onclick="document.getElementById('fileInput').click()" style="background: #6a1b9a; color: white; width: 100%; padding: 12px; border: none; border-radius: 5px; cursor: pointer;">
-                📷 Seleccionar y Publicar
-            </button>
-            
-            <div id="mensaje" style="margin-top: 20px; text-align: center; font-weight: bold;"></div>
-            
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="index.html" style="text-decoration: none; color: #666;">← Volver al inicio</a>
-            </div>
-        </div>
+        <input type="file" id="archivo" accept="image/*">
+        
+        <button onclick="uploadImage()" id="btn-subir">Publicar Obra</button>
+        <br>
+        <a href="index.html" style="display:block; margin-top:20px;">Volver al Inicio</a>
     </div>
 
     <script>
-        const fileInput = document.getElementById('fileInput');
-        const mensaje = document.getElementById('mensaje');
+        const uploadImage = async () => {
+            const fileInput = document.getElementById('archivo');
+            const titleInput = document.getElementById('titulo');
+            const categorySelect = document.getElementById('categoria');
+            const btn = document.getElementById('btn-subir');
 
-        fileInput.addEventListener('change', async function () {
-            const file = this.files[0];
-            const titulo = document.getElementById('titulo').value;
-            const categoria = document.getElementById('categoria').value;
+            const file = fileInput.files[0];
+            const title = titleInput.value;
+            const category = categorySelect.value; 
 
-            if (!file || !titulo) {
-                alert("Por favor, ingresa un título antes de subir la imagen.");
+            if (!file || !title) {
+                alert("Por favor, completa el título y selecciona una imagen");
                 return;
             }
 
-            mensaje.innerHTML = '<span style="color: orange;">⏳ Subiendo...</span>';
+            // Cambiamos el texto del botón para saber que está trabajando
+            btn.innerText = "Subiendo...";
+            btn.disabled = true;
 
             const formData = new FormData();
             formData.append('file', file);
-            formData.append('upload_preset', 'tu_preset'); // REEMPLAZAR
-            formData.append('tags', categoria); 
-            formData.append('context', `caption=${titulo}`);
+            formData.append('upload_preset', 'Creaciones-sin-fronteras'); 
+            formData.append('tags', category); 
+            formData.append('context', `caption=${title}`); 
 
             try {
-                const res = await fetch('https://api.cloudinary.com/v1_1/tu_usuario/image/upload', { // REEMPLAZAR
+                // !!! REEMPLAZA 'TU_USUARIO' POR TU CLOUD NAME REAL !!!
+                const res = await fetch('https://api.cloudinary.com/v1_1/dqbrrsuxb/image/upload', {
                     method: 'POST',
                     body: formData
                 });
+
                 const data = await res.json();
 
-                if (data.secure_url) {
-                    mensaje.innerHTML = '<span style="color: green;">✅ ¡Publicado con éxito!</span>';
-                    document.getElementById('titulo').value = '';
+                if (res.ok) {
+                    alert("¡Publicado con éxito!");
+                    window.location.href = 'index.html'; 
                 } else {
-                    mensaje.innerHTML = '<span style="color: red;">❌ Error al subir.</span>';
+                    console.error("Detalle:", data);
+                    alert("Error: " + (data.error ? data.error.message : "No se pudo subir"));
                 }
             } catch (err) {
-                mensaje.innerHTML = '<span style="color: red;">❌ Error de conexión.</span>';
+                alert("Error de conexión");
+            } finally {
+                btn.innerText = "Publicar Obra";
+                btn.disabled = false;
             }
-        });
+        };
     </script>
 </body>
 </html>
