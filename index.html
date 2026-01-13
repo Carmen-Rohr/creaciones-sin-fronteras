@@ -307,35 +307,71 @@
             }
         };
     </script>
-        <script>
+    
+    <script>
+                /* --- 1. FUNCIÓN PARA CARGAR IMÁGENES DESDE CLOUDINARY --- */
         function cargarGaleria(categoria, idContenedor) {
             const grid = document.getElementById(idContenedor);
             if (!grid) return;
 
             fetch(`/.netlify/functions/getImages?tag=${categoria}`)
-                .then(res => res.json())
-                .then(images => {
-                    images.forEach(img => {
-                        const article = document.createElement('article');
-                        article.className = 'card';
-                        article.innerHTML = `
-                            <a href="${img.url}" data-lightbox="${categoria}" data-title="${img.titulo}">
-                                <img src="${img.url}" alt="${img.titulo}">
-                            </a>
-                            <div class="card-info">
-                                <h3>${img.titulo}</h3>
-                            </div>
-                        `;
-                        grid.appendChild(article);
-                    });
+                .then(res => {
+                    if (!res.ok) throw new Error('Error en el servidor');
+                    return res.json();
+                })
+                .then(data => {
+                    // Verificamos que 'data' sea una lista (Array)
+                    if (Array.isArray(data)) {
+                        data.forEach(img => {
+                            const article = document.createElement('article');
+                            article.className = 'card';
+                            article.innerHTML = `
+                                <a href="${img.url}" data-lightbox="${categoria}" data-title="${img.titulo}">
+                                    <img src="${img.url}" alt="${img.titulo}">
+                                </a>
+                                <div class="card-info">
+                                    <h3>${img.titulo}</h3>
+                                </div>
+                            `;
+                            grid.appendChild(article);
+                        });
+                    }
                 })
                 .catch(err => console.error("Error al cargar " + categoria, err));
         }
 
+        /* --- 2. FUNCIONES PARA EL MODAL (LO QUE FALTABA) --- */
+        function abrirModal(texto) {
+            const modal = document.getElementById("miModal");
+            const modalTexto = document.getElementById("modal-texto");
+            if (modal && modalTexto) {
+                modalTexto.innerHTML = texto;
+                modal.style.display = "block";
+                document.body.style.overflow = "hidden"; // Quita el scroll del fondo
+            }
+        }
+
+        function cerrarModal() {
+            const modal = document.getElementById("miModal");
+            if (modal) {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto"; // Devuelve el scroll
+            }
+        }
+
+        // Cerrar si hace clic fuera de la caja
+        window.onclick = function(event) {
+            const modal = document.getElementById("miModal");
+            if (event.target == modal) {
+                cerrarModal();
+            }
+        }
+
+        /* --- 3. INICIO AUTOMÁTICO --- */
         document.addEventListener('DOMContentLoaded', () => {
             cargarGaleria('historietas', 'grid-historietas');
             cargarGaleria('dibujos', 'grid-dibujos');
-        });
+        });    
     </script>
 </body>
 </html>
