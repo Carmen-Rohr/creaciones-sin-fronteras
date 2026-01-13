@@ -4,25 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Obra - Creaciones Sin Fronteras</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="estilos.css?v=1.2">
 </head>
 <body>
 
-    <div class="form-container">
-        <h2>Subir Nueva Obra</h2>
-        
-        <input type="text" id="titulo" placeholder="Título de la obra" required>
-        
-        <select id="categoria">
-            <option value="dibujos">Dibujo y Arte</option>
-            <option value="historietas">Historieta</option>
-        </select>
+    <header class="header">
+        <div class="logo">
+            <h1 style="color: white; margin: 0;">Panel de Artista</h1>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Volver al Inicio</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <input type="file" id="archivo" accept="image/*">
-        
-        <button onclick="uploadImage()" id="btn-subir">Publicar Obra</button>
-        <br>
-        <a href="index.html" style="display:block; margin-top:20px;">Volver al Inicio</a>
+    <div class="container">
+        <div class="contacto-contenedor"> <h2 class="section-title">Subir Nueva Obra</h2>
+            
+            <div class="grupo-input">
+                <label>Título de la Obra</label>
+                <input type="text" id="titulo" placeholder="Ej: Atardecer en el campo" required>
+            </div>
+            
+            <div class="grupo-input">
+                <label>Categoría</label>
+                <select id="categoria">
+                    <option value="dibujos">Dibujo y Arte</option>
+                    <option value="historietas">Historieta</option>
+                </select>
+            </div>
+
+            <div class="grupo-input">
+                <label>Seleccionar Imagen</label>
+                <input type="file" id="archivo" accept="image/*" style="background: none; border: none;">
+            </div>
+            
+            <button onclick="uploadImage()" id="btn-subir" class="btn-enviar">Publicar Obra</button>
+        </div>
     </div>
 
     <script>
@@ -41,7 +60,6 @@
                 return;
             }
 
-            // Cambiamos el texto del botón para saber que está trabajando
             btn.innerText = "Subiendo...";
             btn.disabled = true;
 
@@ -52,7 +70,7 @@
             formData.append('context', `caption=${title}`); 
 
             try {
-                // !!! REEMPLAZA 'TU_USUARIO' POR TU CLOUD NAME REAL !!!
+                // Tu usuario real
                 const res = await fetch('https://api.cloudinary.com/v1_1/dqbrrsuxb/image/upload', {
                     method: 'POST',
                     body: formData
@@ -64,7 +82,6 @@
                     alert("¡Publicado con éxito!");
                     window.location.href = 'index.html'; 
                 } else {
-                    console.error("Detalle:", data);
                     alert("Error: " + (data.error ? data.error.message : "No se pudo subir"));
                 }
             } catch (err) {
