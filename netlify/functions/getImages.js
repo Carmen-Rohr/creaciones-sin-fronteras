@@ -7,34 +7,39 @@ cloudinary.config({
 });
 
 exports.handler = async (event) => {
-  const tag = event.queryStringParameters.tag || 'historietas';
+  const tag = event.queryStringParameters.tag;
 
   try {
-    // Usamos el método más directo de Cloudinary para traer por tag
     const result = await cloudinary.api.resources_by_tag(tag, {
       context: true,
-      max_results: 50
+      max_results: 100
     });
 
-    const images = result.resources.map(res => ({
-      url: res.secure_url,
-      // Intentamos sacar el título del contexto, si no ponemos uno por defecto
-      titulo: (res.context && res.context.caption) ? res.context.caption : "Obra Artística"
-    }));
+    const images = result.resources.map(res => {
+      // Buscamos el título en 'caption' o 'custom.caption'
+      let tituloFinal = "Obra Artística";
+      
+      if (res.context && res.context.custom && res.context.custom.caption) {
+        tituloFinal = res.context.custom.caption;
+      } else if (res.context && res.context.caption) {
+        tituloFinal = res.context.caption;
+      }
+
+      return {
+        url: res.secure_url,
+        titulo: tituloFinal
+      };
+    });
 
     return {
       statusCode: 200,
-      headers: { 
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*" 
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(images),
     };
   } catch (error) {
-    console.error("Error en la función:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Fallo en Cloudinary", detalle: error.message }),
+      body: JSON.stringify({ error: error.message }),
     };
   }
 };
