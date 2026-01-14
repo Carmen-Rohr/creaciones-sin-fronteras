@@ -1,6 +1,5 @@
 const cloudinary = require('cloudinary').v2;
 
-// Netlify tomará estos datos automáticamente de las "Environment Variables" que configures en su panel
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -8,30 +7,34 @@ cloudinary.config({
 });
 
 exports.handler = async (event) => {
-  // Obtenemos el tag (historietas o dibujos) desde la URL
-  const tag = event.queryStringParameters.tag || 'dibujos';
-  
-  try {
-    const { resources } = await cloudinary.search
-      .expression(`tags:${tag}`)
-      .with_field('context') // Esto es para traer el título
-      .sort_by('created_at', 'desc') // Las más nuevas primero
-      .execute();
+  const tag = event.queryStringParameters.tag || 'historietas';
 
-    const images = resources.map(res => ({
+  try {
+    // Usamos el método más directo de Cloudinary para traer por tag
+    const result = await cloudinary.api.resources_by_tag(tag, {
+      context: true,
+      max_results: 50
+    });
+
+    const images = result.resources.map(res => ({
       url: res.secure_url,
-      titulo: (res.context && res.context.caption) ? res.context.caption : 'Sin título'
+      // Intentamos sacar el título del contexto, si no ponemos uno por defecto
+      titulo: (res.context && res.context.caption) ? res.context.caption : "Obra Artística"
     }));
 
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(images)
+      headers: { 
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*" 
+      },
+      body: JSON.stringify(images),
     };
   } catch (error) {
+    console.error("Error en la función:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Error al conectar con Cloudinary' })
+      body: JSON.stringify({ error: "Fallo en Cloudinary", detalle: error.message }),
     };
   }
 };
