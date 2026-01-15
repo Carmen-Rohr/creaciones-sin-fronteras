@@ -39,9 +39,11 @@
                 <label>Seleccionar Imagen</label>
                 <input type="file" id="archivo" accept="image/*" style="background: none; border: none;">
             </div>
-            
+            <div class="instruccion-historieta" id="info-historieta" style="display: none;">
+                <p>💡 <strong>Tip para Historietas:</strong> Sube las páginas una por una en el orden que quieras que se lean (Pág 1, luego Pág 2...).</p>
+            </div>
             <button onclick="uploadImage()" id="btn-subir" class="btn-enviar">Publicar Obra</button>
-        </div>
+        </div>       
     </div>
 
     <script>
@@ -91,6 +93,17 @@
                 btn.disabled = false;
             }
         };
+        // Script para mostrar/ocultar el tip de historietas
+        const selector = document.getElementById('categoria');
+        const aviso = document.getElementById('info-historieta');
+
+        selector.addEventListener('change', function() {
+            if (this.value === 'historietas') {
+                aviso.style.display = 'block';
+            } else {
+                aviso.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
