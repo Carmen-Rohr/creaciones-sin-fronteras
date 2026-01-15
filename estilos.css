@@ -20,6 +20,13 @@ body {
     line-height: 1.6;
 }
 
+.container {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+
 /* --- Navegación (Aquí está el arreglo para que no se vea uno abajo del otro) --- */
 .header {
     background-color: var(--primario);
@@ -571,56 +578,85 @@ body {
     transform: translateY(-2px);
 }
 
-/* --- Responsive (Celulares) --- */
+/* --- Responsive (Celulares) COMPLETO Y CORREGIDO --- */
 @media (max-width: 768px) {
-    /* --- Lo que ya tenías --- */
+    /* 1. Reset de márgenes para evitar el espacio blanco a la derecha */
+    html, body {
+        overflow-x: hidden; /* Evita el scroll lateral */
+        width: 100%;
+    }
+
+    /* 2. Header y Navegación */
     .header {
         flex-direction: column;
+        width: 100vw !important; /* Fuerza ancho total de la pantalla */
+        left: 0 !important;
+        margin: 0 !important;
     }
+
     .nav ul {
         margin-top: 20px;
         flex-wrap: wrap;
         justify-content: center;
+        padding: 0;
     }
+
     .nav li {
         margin: 5px 10px;
     }
+
+    /* 3. Centrado de Contenidos y Poesías */
     .contenido-con-lateral {
         flex-direction: column;
-        align-items: center; /* Asegura que el contenido se centre */
+        align-items: center;
     }
 
-    /* --- Tus nuevas peticiones --- */
-
-    /* 1. Ocultar imágenes laterales con mensajes */
-    .imagen-lateral {
-        display: none !important; 
+    /* Forzamos que la cuadrícula de poesías se apile y centre */
+    .poesia-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
     }
 
-    /* 2. Icono de música más a la izquierda y WhatsApp con más margen */
-    .music-control { 
-        right: 30px !important; /* Ajusta este número si quieres que se mueva más */
-    }
-    .whatsapp-btn { 
-        right: 25px !important; 
-        bottom: 30px !important; /* Para que no se corte abajo */
+    /* Centramos cada tarjeta de poesía individualmente */
+    .poesia-item, .poesia-card, .seccion-poesia {
+        width: 90% !important;
+        max-width: none !important;
+        margin: 15px auto !important;
+        text-align: center !important;
+        display: block !important; /* Asegura que el margin auto funcione */
     }
 
-    /* 3. Centrar poesías e imágenes */
-    .poesia-card, .galeria-grid, .seccion-poesia {
+    .galeria-grid {
         width: 100%;
-        text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    /* 4. Barra de abajo (footer) que llegue hasta el final */
+    /* 4. Elementos a ocultar */
+    .imagen-lateral {
+        display: none !important; 
+    }
+
+    /* 5. Iconos Flotantes (Música y WhatsApp) */
+    .music-control { 
+        right: 30px !important; 
+    }
+
+    .whatsapp-btn { 
+        right: 25px !important; 
+        bottom: 30px !important; 
+    }
+
+    /* 6. Barra de abajo (Footer) total */
     .footer, .barra-inferior {
-        width: 100% !important;
+        width: 100vw !important;
         left: 0 !important;
         right: 0 !important;
         margin: 0 !important;
-        border-radius: 0 !important; /* Quita redondeos si los tiene para que pegue al borde */
+        border-radius: 0 !important;
+        box-sizing: border-box;
     }
 }
