@@ -579,103 +579,98 @@ body {
 }
 
 /* --- Responsive (Celulares) COMPLETO Y CORREGIDO --- */
+/* --- Responsive (Celulares) COMPLETO Y CORREGIDO --- */
 @media (max-width: 768px) {
-    /* 1. Reset de márgenes para evitar el espacio blanco a la derecha */
+    /* 1. Reset global para evitar desbordes */
     html, body {
-        overflow-x: hidden; /* Evita el scroll lateral */
+        overflow-x: hidden;
         width: 100%;
+        position: relative;
     }
 
-    /* 2. Header y Navegación */
+    /* 2. Header y Nav */
     .header {
         flex-direction: column;
-        width: 100vw !important; /* Fuerza ancho total de la pantalla */
-        left: 0 !important;
-        margin: 0 !important;
+        width: 100vw !important;
+        padding: 1rem 0 !important;
     }
 
     .nav ul {
         margin-top: 20px;
+        padding: 0;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 0;
     }
 
-    .nav li {
-        margin: 5px 10px;
-    }
-
-    /* 3. Centrado de Contenidos y Poesías */
-    .contenido-con-lateral {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* Forzamos que la cuadrícula de poesías se apile y centre */
-   /* Centrado total de la cuadrícula */
-    .poesia-grid {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
+    /* 3. EL ARREGLO DE LAS POESÍAS (Clave) */
+    .poesia-container {
+        display: block !important; /* Quitamos el Grid de PC */
         width: 100% !important;
-        padding: 0 !important; /* Eliminamos cualquier margen interno */
+        padding: 10px !important;
         margin: 0 !important;
     }
 
-    /* Ajuste de la tarjeta de poesía */
-    .poesia-item, .poesia-card, .seccion-poesia {
-        width: 90% !important; 
-        max-width: 90% !important; /* Reforzamos que no se pase del 90% */
-        margin: 15px auto !important; 
-        text-align: center !important;
+    .poesia-grid {
         display: block !important;
-        padding: 15px !important; /* Espacio para que el texto no toque el borde del cuadro */
-        
-        /* LA CLAVE ES ESTA LÍNEA: */
-        box-sizing: border-box !important; 
-        
-        /* OPCIONAL: Si el fondo se ve raro, aseguremos que el fondo sea blanco */
-        background-color: #ffffff; 
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombrita suave para que resalte */
+        width: 95% !important; /* Casi todo el ancho del celu */
+        margin: 20px auto !important; /* Centra el cuadro blanco */
+        padding: 30px 20px !important; /* Un poco menos de espacio que en PC */
+        border-radius: 15px !important; /* Redondeamos todos los bordes */
+        border-left: 8px solid var(--acento) !important;
+        box-sizing: border-box !important;
     }
 
-    /* Aseguramos que el texto no sea más ancho que su caja */
-    .poesia-item p, .poesia-item h3 {
+    /* Centramos el texto dentro de la poesía */
+    .poesia-item {
         width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        word-wrap: break-word; /* Rompe palabras largas si es necesario */
+        text-align: center !important;
     }
 
-    .galeria-grid {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .poesia-item p {
+        text-align: center !important;
+        font-size: 1.1rem !important;
+        display: block;
     }
 
-    /* 4. Elementos a ocultar */
+    /* Quitamos la Letra Capital en el celu porque suele romper el centrado */
+    .poesia-item p:first-of-type::first-letter {
+        float: none !important;
+        font-size: inherit !important;
+        color: inherit !important;
+        margin: 0 !important;
+    }
+
+    /* 4. Grilla de imágenes */
+    .grid {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .card {
+        width: 100% !important;
+        max-width: 320px;
+    }
+
+    /* 5. Elementos a ocultar y botones flotantes */
     .imagen-lateral {
         display: none !important; 
     }
 
-    /* 5. Iconos Flotantes (Música y WhatsApp) */
-    .music-control { 
-        right: 30px !important; 
+    .music-float { 
+        left: 20px !important; 
+        bottom: 20px !important;
     }
 
-    .whatsapp-btn { 
-        right: 25px !important; 
-        bottom: 30px !important; 
+    .whatsapp-float { 
+        right: 20px !important; 
+        bottom: 20px !important; 
     }
 
-    /* 6. Barra de abajo (Footer) total */
-    .footer, .barra-inferior {
+    /* 6. Footer total */
+    .footer {
         width: 100vw !important;
-        left: 0 !important;
-        right: 0 !important;
-        margin: 0 !important;
-        border-radius: 0 !important;
-        box-sizing: border-box;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 }
