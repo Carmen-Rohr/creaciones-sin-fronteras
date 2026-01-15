@@ -124,6 +124,14 @@ body {
 .hero-content {
     animation: fadeInUp 1.5s ease-out forwards;
     padding: 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 800px; /* Evita que el texto se estire demasiado en PC */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero-content h2 {
@@ -600,6 +608,16 @@ body {
         padding: 0;
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    /* Centrado del título principal en el Hero */
+    .hero-content h2 {
+        font-size: 2.2rem !important; /* Un poco más chico para que no se corte */
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 10px;
+        line-height: 1.2;
     }
 
     /* 3. EL ARREGLO DE LAS POESÍAS (Clave) */
