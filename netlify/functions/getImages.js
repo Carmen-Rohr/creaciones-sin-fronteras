@@ -15,10 +15,13 @@ exports.handler = async (event) => {
       max_results: 100
     });
 
-    const images = result.resources.map(res => {
-      // Buscamos el título en 'caption' o 'custom.caption'
+    // ORDEN: De la más antigua (primera subida) a la más nueva (última subida)
+    const sortedResources = result.resources.sort((a, b) => 
+      new Date(a.created_at) - new Date(b.created_at)
+    );
+
+    const images = sortedResources.map(res => {
       let tituloFinal = "Obra Artística";
-      
       if (res.context && res.context.custom && res.context.custom.caption) {
         tituloFinal = res.context.custom.caption;
       } else if (res.context && res.context.caption) {
